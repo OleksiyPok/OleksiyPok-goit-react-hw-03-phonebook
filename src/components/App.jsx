@@ -21,9 +21,8 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    console.log('componentDidMount:');
-
     const contacts = localStorage.getItem(LS_KEY);
+
     if (!contacts) {
       return;
     }
@@ -36,8 +35,6 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate:');
-
     if (prevState.contacts !== this.state.contacts) {
       localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
     }
@@ -45,10 +42,6 @@ export default class App extends Component {
     if (this.state.contacts.length === 0) {
       localStorage.removeItem(LS_KEY);
     }
-  }
-
-  componentWillUnmount() {
-    console.log('componentWillUnmount:');
   }
 
   createPerson = person => {
@@ -84,7 +77,9 @@ export default class App extends Component {
   getFilteredPersons = () => {
     const filter = this.state.filter.toLowerCase();
     const allPersons = this.state.contacts;
+
     if (!allPersons) return;
+
     const filteredPersons = allPersons.filter(person =>
       person.name.toLowerCase().includes(filter)
     );
@@ -93,6 +88,7 @@ export default class App extends Component {
 
   render() {
     const filteredPersons = this.getFilteredPersons();
+
     return (
       <div>
         <h1>Phonebook</h1>
